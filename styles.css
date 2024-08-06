@@ -6,27 +6,44 @@ body {
     padding: 0;
     line-height: 1.6;
 }
-
-h1{
-    color: blue;
-}
 header {
     background: #333;
     color: #fff;
     padding: 1rem 0;
     text-align: center;
+    position: relative;
+}
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #444;
 }
 nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
 }
 nav ul li {
-    display: inline;
     margin: 0 10px;
 }
 nav ul li a {
     color: #fff;
     text-decoration: none;
+}
+.gif-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 100px 0px 100px;
+}
+.nav-gif {
+    width: 600px;
+    height: auto;
+}
+.tenor-gif-embed {
+    width: 100%;
+    height: auto;
 }
 .container {
     padding: 2rem;
@@ -36,7 +53,8 @@ footer {
     color: #fff;
     text-align: center;
     padding: 1rem 0;
-    position: fixed;
     bottom: 0;
     width: 100%;
 }
+
+
