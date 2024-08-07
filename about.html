@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>About Us</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">Shaco Game</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container2">
+        <div class="content">
+            <img src="24225.png" alt="Random Image" id="randomImage">
+            <p id="textBelowImage">TRY TO CATCH PAYASO CIEGO</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 La dupla fode teu jogo. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let clickCount = 0;
+
+        const initialImagePosition = { left: "47%" , top: '0px' }; // Store the initial position of the image
+        
+        document.getElementById('randomImage').addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 1) {
+                document.getElementById('textBelowImage').style.display = 'none';
+            }
+            if (clickCount === 8) {
+                alert('QUE GRAND MIERDA ERES JAJAJAJAJAJA, MALISSIMO');
+                resetImageAndText();
+
+            } else {
+                moveImage();
+            }
+        });
+
+        function moveImage() {
+            const image = document.getElementById('randomImage');
+            const container = document.querySelector('.content');
+            const containerRect = container.getBoundingClientRect();
+            const imageRect = image.getBoundingClientRect();
+
+            const maxX = containerRect.width - imageRect.width;
+            const maxY = containerRect.height - imageRect.height;
+
+            const randomX = Math.floor(Math.random() * (maxX + 1));
+            const randomY = Math.floor(Math.random() * (maxY + 1));
+
+            image.style.left = `${randomX}px`;
+            image.style.top = `${randomY}px`;
+
+            console.log(`New position: (${randomX}px, ${randomY}px)`);
+        }
+
+        function resetImageAndText() {
+        const image = document.getElementById('randomImage');
+        image.style.left = initialImagePosition.left;
+        image.style.top = initialImagePosition.top;
+
+        document.getElementById('textBelowImage').style.display = 'block';
+        clickCount = 0;
+    }
+    </script>
+</body>
+</html>
