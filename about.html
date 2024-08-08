@@ -41,6 +41,7 @@
                 document.getElementById('textBelowImage').style.display = 'none';
             }
             if (clickCount === 8) {
+                playVoiceMessage('YOU ARE A TERRIBLE PLAYER!, SO SHIT EVEN LOSES TO BOTS');
                 alert('QUE GRAND MIERDA ERES JAJAJAJAJAJA, MALISSIMO');
                 resetImageAndText();
 
@@ -68,13 +69,19 @@
         }
 
         function resetImageAndText() {
-        const image = document.getElementById('randomImage');
-        image.style.left = initialImagePosition.left;
-        image.style.top = initialImagePosition.top;
+            const image = document.getElementById('randomImage');
+            image.style.left = initialImagePosition.left;
+            image.style.top = initialImagePosition.top;
 
-        document.getElementById('textBelowImage').style.display = 'block';
-        clickCount = 0;
-    }
+            document.getElementById('textBelowImage').style.display = 'block';
+            clickCount = 0;
+        }
+
+        function playVoiceMessage(message) {
+            const utterance = new SpeechSynthesisUtterance(message);
+            utterance.lang = 'en-EN'; // Define o idioma para português de Portugal
+            window.speechSynthesis.speak(utterance);
+        }
     </script>
 </body>
 </html>
