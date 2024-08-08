@@ -22,7 +22,7 @@
     <div class="container2">
         <div class="content">
             <img src="24225.png" alt="Random Image" id="randomImage">
-            <p id="textBelowImage">TRY TO CATCH PAYASO CIEGO</p>
+            <p id="textBelowImage">CATCH THE CLOWN 8 TIMES TO WIN</p>
         </div>
     </div>
 
@@ -30,18 +30,28 @@
         <p>&copy; 2024 La dupla fode teu jogo. All rights reserved.</p>
     </footer>
 
+    <audio id="audio" src="NOVISTE.wav"></audio>
+    <audio id="audio2" src="DERROTADO.wav"></audio>
     <script>
         let clickCount = 0;
+        let firstClick = true;
 
-        const initialImagePosition = { left: "47%" , top: '0px' }; // Store the initial position of the image
+        const initialImagePosition = { left: "66%", top: '28%' }; // Store the initial position of the image
+
         
+        resetImageAndText();
+
         document.getElementById('randomImage').addEventListener('click', function() {
+            if (firstClick) {
+                playAudio();
+                firstClick = false;
+            }
             clickCount++;
             if (clickCount === 1) {
                 document.getElementById('textBelowImage').style.display = 'none';
             }
             if (clickCount === 8) {
-                playVoiceMessage('YOU ARE A TERRIBLE PLAYER!, SO SHIT EVEN LOSES TO BOTS');
+                playAudio2();
                 alert('QUE GRAND MIERDA ERES JAJAJAJAJAJA, MALISSIMO');
                 resetImageAndText();
 
@@ -75,12 +85,24 @@
 
             document.getElementById('textBelowImage').style.display = 'block';
             clickCount = 0;
+            firstClick = true; // Reset firstClick so it triggers the sound again after reset
         }
 
-        function playVoiceMessage(message) {
-            const utterance = new SpeechSynthesisUtterance(message);
-            utterance.lang = 'en-EN'; // Define o idioma para português de Portugal
-            window.speechSynthesis.speak(utterance);
+        let audioPlayed = false;
+        
+        function playAudio() {
+            if (!audioPlayed) {
+                var audio = document.getElementById("audio");
+                audio.play();
+                audioPlayed = false; 
+            }
+        }
+        function playAudio2() {
+            if (!audioPlayed) {
+                var audio = document.getElementById("audio2");
+                audio.play();
+                audioPlayed = false; 
+            }
         }
     </script>
 </body>
