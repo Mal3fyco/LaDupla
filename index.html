@@ -51,6 +51,7 @@
 
         <h2>Contact</h2>
         <p>GO TO THE CONTACT US PAGE WRITE WHAT U WANT TO TELL US, MIERDOSOS</p>
+        <h3>Total Visits: <span id="visitCounter">0</span></h3>
     </div>
 
     <footer>
@@ -73,6 +74,15 @@
     </script>
 
     <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    <script type="text/javascript">
+        // Fetch the visitor counter and update the page
+        fetch('counter.php')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('visitCounter').textContent = data.visits;
+            })
+            .catch(error => console.error('Error fetching visit counter:', error));
+    </script>
 </body>
 </html>
 
