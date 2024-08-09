@@ -108,6 +108,25 @@
             const visitCount = snapshot.val();
             document.getElementById('visitCounter').textContent = visitCount;
         });
+
+        // Fetch user's IP address
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            console.log("User's IP Address is: ", data.ip);
+            saveIPAddress(data.ip); // Function to save the IP address to Firebase
+        })
+        .catch(error => console.error('Error fetching IP address:', error));
+
+    // Function to save the IP address to Firebase
+    function saveIPAddress(ip) {
+        const ipRef = database.ref('ip_addresses').push();  // Creates a new entry under 'ip_addresses'
+        ipRef.set({
+            ip: ip,
+            timestamp: new Date().toISOString()
+        });
+    }
+    
     </script>
 
 </body>
