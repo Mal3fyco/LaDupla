@@ -81,14 +81,15 @@
     <script type="text/javascript">
         // Your Firebase configuration from the Firebase console
         const firebaseConfig = {
-            apiKey: "AIzaSyBPs6QPlgPLlANlccUeznhjCKM15Od7UUY",
+    apiKey: "AIzaSyBPs6QPlgPLlANlccUeznhjCKM15Od7UUY",
     authDomain: "dupla-b36bb.firebaseapp.com",
+    databaseURL: "https://dupla-b36bb-default-rtdb.firebaseio.com",  // <-- Add this line
     projectId: "dupla-b36bb",
     storageBucket: "dupla-b36bb.appspot.com",
     messagingSenderId: "1055171552696",
     appId: "1:1055171552696:web:f97369646e4d7c53c25b4d",
     measurementId: "G-XMY5QQ8KYG"
-        };
+};
 
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
