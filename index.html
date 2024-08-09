@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Dupla Website</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"></script>
+</head>
 </head>
 <body>
 
@@ -74,15 +77,38 @@
     </script>
 
     <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
     <script type="text/javascript">
-        // Fetch the visitor counter and update the page
-        fetch('counter.php')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('visitCounter').textContent = data.visits;
-            })
-            .catch(error => console.error('Error fetching visit counter:', error));
+        // Your Firebase configuration from the Firebase console
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPs6QPlgPLlANlccUeznhjCKM15Od7UUY",
+    authDomain: "dupla-b36bb.firebaseapp.com",
+    projectId: "dupla-b36bb",
+    storageBucket: "dupla-b36bb.appspot.com",
+    messagingSenderId: "1055171552696",
+    appId: "1:1055171552696:web:f97369646e4d7c53c25b4d",
+    measurementId: "G-XMY5QQ8KYG"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Reference the visits counter in the database
+        const counterRef = database.ref('visits');
+
+        // Increment the counter when the page loads
+        counterRef.transaction((currentCount) => {
+            return (currentCount || 0) + 1;
+        });
+
+        // Display the updated counter
+        counterRef.on('value', (snapshot) => {
+            const visitCount = snapshot.val();
+            document.getElementById('visitCounter').textContent = visitCount;
+        });
     </script>
+
 </body>
 </html>
 
