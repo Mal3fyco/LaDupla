@@ -106,9 +106,15 @@
         const counterRef = database.ref('visits');
 
         // Increment the counter when the page loads
-        counterRef.transaction((currentCount) => {
-            return (currentCount || 0) + 1;
-        });
+        if (!sessionStorage.getItem('visited')) {
+            // Increment the counter if not visited
+            counterRef.transaction((currentCount) => {
+                return (currentCount || 0) + 1;
+            });
+
+            // Mark as visited for this session
+            sessionStorage.setItem('visited', 'true');
+        }
 
         // Display the updated counter
         counterRef.on('value', (snapshot) => {
