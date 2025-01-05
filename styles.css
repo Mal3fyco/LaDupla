@@ -84,7 +84,7 @@ nav ul li a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: fixed;
+    position: relative;
     height: 600px; /* Set a height to give room for the image to move */
     width: 100%; /* Ensure the content takes full width */
     overflow: hidden; /* Add overflow hidden to keep the image within bounds */
