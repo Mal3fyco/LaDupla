@@ -191,6 +191,6 @@ button:hover {
     background: #555;
 }
 
-.player p {
+.players-container.player p {
     max-width: 450px;
 }
