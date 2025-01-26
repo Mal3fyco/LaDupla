@@ -48,18 +48,34 @@
         const db = firebase.firestore();
 
         // Function to like a player
-        async function likePlayer(playerId) {
-            const playerRef = db.collection("Worst_Players").doc(playerId);
+    async function likePlayer(playerId) {
+    // Retrieve the list of liked players from localStorage
+    const likedPlayers = JSON.parse(localStorage.getItem('likedPlayers')) || [];
 
-            try {
-                await playerRef.update({
-                    likes: firebase.firestore.FieldValue.increment(1) // Increment likes by 1
-                });
-                loadPlayers(); // Reload players after updating likes
-            } catch (error) {
-                console.error("Error updating likes: ", error);
-            }
-        }
+    // Check if the player is already liked
+    if (likedPlayers.includes(playerId)) {
+        alert("You have already liked this player!");
+        return; // Exit the function
+    }
+
+    const playerRef = db.collection("Worst_Players").doc(playerId);
+
+    try {
+        // Increment the likes count in Firestore
+        await playerRef.update({
+            likes: firebase.firestore.FieldValue.increment(1)
+        });
+
+        // Add the playerId to the localStorage list
+        likedPlayers.push(playerId);
+        localStorage.setItem('likedPlayers', JSON.stringify(likedPlayers));
+
+        alert("Like added successfully!");
+        loadPlayers(); // Reload players to update the UI
+    } catch (error) {
+        console.error("Error updating likes: ", error);
+    }
+}
 
         // Function to load players
         async function loadPlayers() {

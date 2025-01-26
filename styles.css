@@ -191,6 +191,10 @@ button:hover {
     background: #555;
 }
 
-.players-container.player p {
+.player {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
     max-width: 450px;
 }
