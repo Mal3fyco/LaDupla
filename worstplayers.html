@@ -10,13 +10,12 @@
 </head>
 <body>
     <header>
-        <h1>Worst Players List</h1><br><br>
-        <p>IF YOUR NAME IS HERE, YOU ARE THE WORST OF THE WORST, ABSOLUTE GARBAGE PLAYER</p>
+        <h1>Worst Players List</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">Shaco Game</a></li>
-                <li><a href="contact.html">Contact us</a></li>
+                <li><a href="contact.html">Contact</a></li>
                 <li><a href="Worstplayers.html">Worst Players</a></li>
             </ul>
         </nav>
@@ -34,7 +33,7 @@
     </footer>
 
     <script>
-        // Configuração Firebase (já existente no seu projeto)
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBPs6QPlgPLlANlccUeznhjCKM15Od7UUY",
             authDomain: "dupla-b36bb.firebaseapp.com",
@@ -44,17 +43,33 @@
             appId: "1:1055171552696:web:f97369646e4d7c53c25b4d"
         };
 
-        // Inicializar Firebase
+        // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Função para carregar jogadores
-        async function loadPlayers() {
-            const playersList = document.getElementById("playersList");
-            playersList.innerHTML = ""; // Limpar a lista
+        // Function to like a player
+        async function likePlayer(playerId) {
+            const playerRef = db.collection("Worst_Players").doc(playerId);
 
             try {
-                const snapshot = await db.collection("Worst_Players").orderBy("timestamp", "desc").get();
+                await playerRef.update({
+                    likes: firebase.firestore.FieldValue.increment(1) // Increment likes by 1
+                });
+                loadPlayers(); // Reload players after updating likes
+            } catch (error) {
+                console.error("Error updating likes: ", error);
+            }
+        }
+
+        // Function to load players
+        async function loadPlayers() {
+            const playersList = document.getElementById("playersList");
+            playersList.innerHTML = ""; // Clear the list
+
+            try {
+                const snapshot = await db.collection("Worst_Players")
+                                         .orderBy("likes", "desc")
+                                         .get();
                 snapshot.forEach((doc) => {
                     const player = doc.data();
                     const playerDiv = document.createElement("div");
@@ -63,6 +78,8 @@
                         <h3>${player.name}</h3>
                         <img src="${player.image}" alt="${player.name}" style="width: 150px; border-radius: 10px;">
                         <p>${player.description}</p>
+                        <p>Likes: <span id="likes-${doc.id}">${player.likes || 0}</span></p>
+                        <button onclick="likePlayer('${doc.id}')">Like</button>
                     `;
                     playersList.appendChild(playerDiv);
                 });
@@ -71,7 +88,7 @@
             }
         }
 
-        // Carregar jogadores ao abrir a página
+        // Load players on page load
         loadPlayers();
     </script>
 </body>
