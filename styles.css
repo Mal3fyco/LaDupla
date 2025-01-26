@@ -190,3 +190,7 @@ button {
 button:hover {
     background: #555;
 }
+
+.player.p{
+    max-width: 450px;
+}
